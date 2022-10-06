@@ -1,0 +1,11 @@
+$font-size-base: 1rem; //16px;
+body {
+  height: 100%;
+  font-family: "Sarabun", Avenir, Helvetica, Arial, sans-serif;
+  font-size: $font-size-base; //16px;
+  line-height: 1.5;
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  position: relative;
+}

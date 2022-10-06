@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import store from "@/store/index";
+import { TokenService } from "@/services/storage.service";
 
 Vue.use(VueRouter);
 
@@ -26,5 +28,24 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach(async (to, from, next) => {
+  store.commit("setPageLoading", true);
+  return next();
+});
+
+router.afterEach(async (to, from, next) => {
+  store.commit("setPageLoading", false);
+});
+
+const VueRouterPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(to) {
+  return VueRouterPush.call(this, to).catch((err) => err);
+};
+
+const VueRouterReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(to) {
+  return VueRouterReplace.call(this, to).catch((err) => err);
+};
 
 export default router;
